@@ -1,0 +1,70 @@
+uvicorn main:app --host 0.0.0.0 --port 8000
+ uvicorn main:app --host 0.0.0.0 --port 8080
+http://127.0.0.1:8000/docs
+
+
+密钥已生成并保存到 .env 文件: 7JohFEo87XAf9O7mvj5NHrvki34MCABuAFSYa3raSFs
+
+
+
+ uvicorn main:app --host 0.0.0.0 --port 8000
+ 
+ sudo service postgresql start
+ 
+ ssh隧道工具：端口号：8081,8000
+ 
+ npm run serve
+ 
+ 
+ 
+
+
+控制端口号：
+
+C:\Users\zyc\frontend>netstat -ano | findstr ":8081"
+  TCP    127.0.0.1:8081         0.0.0.0:0              LISTENING       34192
+
+C:\Users\zyc\frontend>taskkill /PID 34192 /F
+成功: 已终止 PID 为 34192 的进程。
+
+(UNetMamba-main) root@autodl-container-17bd458653-041fa61e:~/autodl-tmp/remote-sensing-app/backend# cat .env
+SECRET_KEY=7JohFEo87XAf9O7mvj5NHrvki34MCABuAFSYa3raSFs
+
+# 清理数据库
+psql -U remote_user -h localhost -p 5432 -d remote_db
+DROP TABLE alembic_version;
+\q
+
+# 清理迁移文件
+rm -rf alembic/versions/*
+
+# 生成新迁移脚本
+alembic revision -m "Initial migration: create users and segmentation_history tables"
+
+# 编辑迁移脚本（替换为上述代码）
+
+# 应用迁移
+alembic upgrade head
+
+# 验证
+psql -U remote_user -h localhost -p 5432 -d remote_db
+\dt
+
+uvicorn main:app --host 0.0.0.0 --port 8000 --workers 4 --log-level debug
+
+分析用地情况，规划未来的发展方向。
+
+export DEEPSEEK_API_KEY="sk-55a36ba828bb42c88f7fede1931cf599"
+
+请基于提供的遥感图像描述、分析目标和土地覆盖分割统计数据，生成一份专业的遥感图像土地覆盖分割分析报告。
+
+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
+
+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
+uvicorn main:app --host 0.0.0.0 --port 8000  --reload
+
+
+新dpcapi  ： 
+sk-a2526fa954804549960244d15fd62c1a
+新openai api：
+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
