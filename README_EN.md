@@ -10,7 +10,7 @@
 
 **An Intelligent Land Cover Classification System for High-Resolution Remote Sensing Images based on Deep Learning**
 
-[English](README_EN.md) | [中文](README.md)
+[English](README_EN.md) | [中文](README.md) | [日本語](README_JP.md)
 
 [Features](#-features) · [Quick Start](#-quick-start) · [Architecture](#-system-architecture) · [Core Models](#-core-models)
 
