@@ -1,63 +1,130 @@
-# 基于遥感卫星图像的地表覆盖分类系统
+# 🛰️ 基于遥感卫星图像的地表覆盖分类系统
 
-本项目是我的本科毕业设计——一个基于 Python FastAPI 和 Vue.js 构建的前后端分离 Web 系统，旨在实现高分辨率遥感图像的智能化地表覆盖分类。系统整合了多种深度学习模型，并对核心的 UNetMamba 模型进行了探索性改进。
+<div align="center">
 
-## 1. 项目背景与意义
+![Python](https://img.shields.io/badge/Python-3.8+-3776ab?style=for-the-badge&logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+![Vue.js](https://img.shields.io/badge/Vue.js-3.x-4fc08d?style=for-the-badge&logo=vue.js&logoColor=white)
+![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-ee4c2c?style=for-the-badge&logo=pytorch&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)
 
-随着遥感技术的飞速发展，高分辨率遥感图像已在城市规划、环境监测、灾害评估等领域发挥着至关重要的作用。然而，从海量复杂的影像中高效、精准地提取地表覆盖信息仍面临着巨大挑战。本项目旨在构建一个用户友好的智能化分析平台，集成先进的深度学习算法，实现遥感图像的高效、精准自动化分类，以应对实际应用需求。
+**一个基于深度学习的高分辨率遥感图像智能化地表覆盖分类系统**
 
-## 2. 系统架构设计
+[功能特性](#-系统功能) · [快速开始](#-快速开始) · [技术架构](#-系统架构) · [模型说明](#-核心模型)
 
-系统采用前后端分离的 **B/S 架构模式**，具备良好的灵活性、可扩展性和可维护性。
+</div>
 
-* **前端 (表示层)**：基于 **Vue.js 3** 构建，负责界面渲染、用户交互和数据可视化。
-* **后端 (应用层)**：基于 **Python FastAPI** 实现，负责处理业务逻辑、用户认证、模型调度和 API 接口。
-* **模型层**：封装了基于 **PyTorch** 实现的多种深度学习分割模型，执行核心的推理计算。
-* **数据持久层**：使用**本地文件系统**存储图像数据，并采用 **SQLite** (通过 SQLAlchemy 操作) 存储用户信息和历史记录等结构化数据。
+---
 
-## 3. 核心模型与改进
+## 📖 项目简介
 
-本项目的核心算法是 **UNetMamba**，它结合了 U-Net 的多尺度特征融合能力和 Mamba 状态空间模型处理长序列数据的线性计算效率优势。
+本项目是一个基于 **Python FastAPI** 和 **Vue.js 3** 构建的前后端分离 Web 系统，旨在实现高分辨率遥感图像的智能化地表覆盖分类。系统整合了多种深度学习模型，并对核心的 **UNetMamba** 模型进行了探索性改进。
 
-为了进一步提升模型性能，我进行了创新性改进，在原始 UNetMamba 模型的**输入端引入了坐标注意力 (Coordinate Attention, CA) 机制**。
+### 🎯 项目背景
 
-* **改进动机**：希望在特征提取的最开始就提升模型对输入图像空间结构和位置信息的敏感度，从而引导网络聚焦于关键区域，提升分割精度，尤其是地物边界的定位能力。
-* **实现方式**：输入图像在进入 ResT 编码器主干网络之前，首先流经一个 CA 模块进行注意力加权。
+随着遥感技术的飞速发展，高分辨率遥感图像已在城市规划、环境监测、灾害评估等领域发挥着至关重要的作用。本项目旨在构建一个用户友好的智能化分析平台，集成先进的深度学习算法，实现遥感图像的高效、精准自动化分类。
 
-## 4. 实验与结果摘要
+---
 
-为了验证改进效果，我在 LoveDA、ISPRS Vaihingen 和 ISPRS Potsdam 等多个公开数据集上进行了全面的实验评估。
+## ✨ 系统功能
 
-* **核心成果**：在 LoveDA 数据集上，改进后的 UnetMamba_CA 模型在各项指标上均超越了原始 UNetMamba 及多种对比方法，其中 **mIoU (不计背景) 达到了 59.66%**。
-* **泛化能力**：该性能优势在分辨率更高的 Vaihingen 和 Potsdam 数据集上仍然保持，证明了改进策略拥有良好的泛化能力和跨数据集有效性。
+| 功能模块 | 描述 |
+|:---------|:-----|
+| 🔐 **用户管理** | 安全的注册与登录认证 |
+| 📤 **图像处理** | 支持单张/批量遥感图像上传，自适应预处理 |
+| 🤖 **模型分割** | 可选择 UNetMamba、DC-Swin、UNetFormer 等模型执行语义分割 |
+| 📊 **结果分析** | 原图/分割图叠加对比、透明度调节、统计图表生成 |
+| 📜 **历史记录** | 自动保存分割任务详细记录 |
+| 🤝 **AI 助手** | 集成大语言模型辅助生成分析报告 |
 
-## 5. 系统功能
+---
 
-* **用户管理**：提供安全的注册与登录认证。
-* **图像处理**：支持单张/批量遥感图像上传，并进行自适应预处理。
-* **模型分割**：用户可选择 UNetMamba、DC-Swin 等多种模型执行像素级语义分割。
-* **结果分析**：提供原图/分割图的叠加对比、透明度调节、局部放大和统计图表 (饼图/柱状图) 生成功能。
-* **历史记录**：自动保存每次分割任务的详细记录，方便用户回顾与管理。
-* **AI 助手**：集成大语言模型，可根据分割统计数据辅助生成初步的分析报告。
+## 🏗️ 系统架构
 
-## 6. 安装与使用
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                        前端 (Vue.js 3)                          │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────────────────┐ │
+│  │  登录/注册  │  │   图像上传   │  │   分割结果可视化展示     │ │
+│  └─────────────┘  └─────────────┘  └─────────────────────────┘ │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                         REST API
+                              │
+┌─────────────────────────────────────────────────────────────────┐
+│                       后端 (FastAPI)                            │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────────────────┐ │
+│  │  用户认证   │  │  图像处理   │  │      模型调度推理        │ │
+│  └─────────────┘  └─────────────┘  └─────────────────────────┘ │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+┌─────────────────────────────────────────────────────────────────┐
+│                     模型层 (PyTorch)                            │
+│  ┌───────────────┐  ┌────────────┐  ┌──────────────────────┐   │
+│  │  UNetMamba    │  │  DC-Swin   │  │    UNetFormer        │   │
+│  │  (with CA)    │  │  Small     │  │    R18               │   │
+│  └───────────────┘  └────────────┘  └──────────────────────┘   │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 🧠 核心模型
+
+本项目的核心算法是 **UNetMamba**，结合了 U-Net 的多尺度特征融合能力和 Mamba 状态空间模型的线性计算效率优势。
+
+### 🔬 创新改进
+
+在原始 UNetMamba 模型的**输入端引入了坐标注意力 (Coordinate Attention, CA) 机制**：
+
+- **改进动机**：在特征提取的最开始提升模型对输入图像空间结构和位置信息的敏感度
+- **实现方式**：输入图像在进入 ResT 编码器主干网络之前，首先流经 CA 模块进行注意力加权
+
+### 📈 实验结果
+
+| 数据集 | 模型 | mIoU (不计背景) |
+|:-------|:-----|:---------------:|
+| LoveDA | UNetMamba_CA | **59.66%** |
+| Vaihingen | UNetMamba_CA | 优于基准 |
+| Potsdam | UNetMamba_CA | 优于基准 |
+
+---
+
+## 🚀 快速开始
+
+### 环境要求
+
+- Python 3.8+
+- Node.js 16+
+- CUDA 11.x (推荐用于 GPU 加速)
 
 ### 后端启动
 
+```bash
 # 进入后端目录
 cd backend
+
+# 创建虚拟环境
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
 
 # 安装依赖
 pip install -r requirements.txt
 
-# (重要) 复制 .env.example 文件为 .env，并填入所需配置
-# (重要) 下载模型文件并放置到 backend/model_weights 目录
+# 配置环境变量
+cp .env.example .env
+# 编辑 .env 文件，填入 SECRET_KEY, DEEPSEEK_API_KEY 等
+
+# 下载模型权重文件到 backend/model_weights 目录
+# (请联系项目维护者获取模型权重)
 
 # 启动服务
-uvicorn main:app --reload
+uvicorn main:app --reload --port 8000
+```
 
 ### 前端启动
 
+```bash
 # 进入前端目录
 cd frontend
 
@@ -66,12 +133,45 @@ npm install
 
 # 启动开发服务器
 npm run serve
-在浏览器中打开相应的本地网址即可访问。
+```
 
-# 🙏 致谢 (Acknowledgments)
-本项目的核心模型实现，在官方 UNetMamba 模型的基础上进行了修改和实验。在此对原作者的卓越工作表示感谢。
+访问 http://localhost:8081 即可使用系统。
 
-原始论文: UNetMamba: An Efficient UNet-Like Mamba for Semantic Segmentation of High-Resolution Remote Sensing Images
+---
 
-原始代码仓库: https://github.com/EnzeZhu2001/UNetMamba.git
-许可证: 本项目对 UNetMamba 的使用遵循其原始的 Apache License 2.0 协议。
+## 📁 项目结构
+
+```
+Land-Cover-Classification-System/
+├── backend/                  # 后端代码
+│   ├── main.py              # FastAPI 主应用
+│   ├── database.py          # 数据库配置
+│   ├── db_models.py         # 数据模型
+│   ├── schemas.py           # Pydantic 模式
+│   └── requirements.txt     # Python 依赖
+├── frontend/                 # 前端代码
+│   ├── src/
+│   │   ├── views/           # 页面组件
+│   │   ├── components/      # 复用组件
+│   │   └── router/          # 路由配置
+│   └── package.json         # Node 依赖
+├── UNetMamba/               # 模型训练代码
+└── README.md
+```
+
+---
+
+## 🙏 致谢
+
+本项目的核心模型实现基于官方 **UNetMamba** 模型进行了修改和实验。
+
+- **原始论文**: *UNetMamba: An Efficient UNet-Like Mamba for Semantic Segmentation of High-Resolution Remote Sensing Images*
+- **原始代码仓库**: [EnzeZhu2001/UNetMamba](https://github.com/EnzeZhu2001/UNetMamba)
+
+---
+
+## 📄 License
+
+本项目采用 [MIT License](LICENSE) 许可证。
+
+对 UNetMamba 的使用遵循其原始的 Apache License 2.0 协议。

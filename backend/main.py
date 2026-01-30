@@ -1,7 +1,4 @@
-from flask import Flask, request, jsonify, send_file
 from cyclegan.models.networks import define_G
-from flask_cors import CORS
-import openai
 import requests
 import os
 import uuid
@@ -153,8 +150,7 @@ MODEL_CLASS_INDEX_MAP = {
     },
 }
 
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+
 
 
 

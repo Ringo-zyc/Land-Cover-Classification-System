@@ -1,14 +1,23 @@
 # Python / FastAPI
 __pycache__/
+*.py[cod]
+*$py.class
 *.pyc
 .env
 venv/
 .idea/
-/backend/app.log
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Logs
+*.log
+app.log
 
 # Node.js / Vue
-/frontend/node_modules/
-/frontend/dist/
+node_modules/
+dist/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -22,7 +31,30 @@ yarn-error.log*
 /backend/style_transfer_images/
 /backend/uploads/
 /backend/unetmamba_model/
+/backend/images/
+/backend/data/
+/backend/cyclegan/checkpoints/
+
+# UNetMamba training outputs (large files)
+/UNetMamba/lightning_logs/
+/UNetMamba/fig_results/
+/UNetMamba/data/
+/UNetMamba/pretrain_weights/
+
+# Database
+*.db
+*.sqlite3
+
+# Local utility files
+netstat
 
 # OS generated files
 .DS_Store
 Thumbs.db
+*.swp
+*~
+
+# IDE
+.vscode/
+*.sublime-project
+*.sublime-workspace
